@@ -9,6 +9,8 @@ using ContactLibrary;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
 
 namespace ContactTableWebRole
 {
@@ -40,15 +42,36 @@ namespace ContactTableWebRole
         {
             try
             {
-                CloudTable table = _cloudTableClient.GetTableReference("Contacts");
-                ContactTable contactTable = new ContactTable(ContactNameTextBox.Text, ContactNumberTextBox.Text)
+                ////shifted to Worker Role
+                //CloudTable table = _cloudTableClient.GetTableReference("Contacts");
+                //ContactTable contactTable = new ContactTable(ContactNameTextBox.Text, ContactNumberTextBox.Text)
+                //{
+                //    Email = EmailTextBox.Text,
+                //    ContactType = ContactTypeTextBox.Text
+                //};
+                //TableOperation insertOpoerations = TableOperation.Insert(contactTable);
+                //table.Execute(insertOpoerations);
+                //LogInfo(string.Format($"Contact: '{ContactNameTextBox.Text}' with the ContactNumber: '{ContactNumberTextBox.Text}', created successfully"));
+                //ListContacts();
+         
+
+                CloudQueueClient cloudQueueClient = _cloudStorageAccount.CreateCloudQueueClient();
+                CloudQueue queue = cloudQueueClient.GetQueueReference("addcontactqueue");
+                if (queue.CreateIfNotExists())
+                {
+                    LogInfo("From AddNewContactButton_Click, Checking if the 'addcontactqueue' exists, if not creating it");
+                }
+
+                ContactTable contact = new ContactTable(ContactNameTextBox.Text, ContactNumberTextBox.Text)
                 {
                     Email = EmailTextBox.Text,
                     ContactType = ContactTypeTextBox.Text
                 };
-                TableOperation insertOpoerations = TableOperation.Insert(contactTable);
-                table.Execute(insertOpoerations);
-                LogInfo(string.Format($"Contact: '{ContactNameTextBox.Text}' with the ContactNumber: '{ContactNumberTextBox.Text}', created successfully"));
+                var jsonContact = JsonConvert.SerializeObject(contact);
+                CloudQueueMessage message = new CloudQueueMessage(jsonContact);
+                queue.AddMessage(message);
+                LogInfo(string.Format($"Conatct: {ContactNameTextBox.Text} with ContactNumber: {ContactNumberTextBox.Text} has been added to the queue successfully"));
+                TextClear();
                 ListContacts();
             }
             catch (Exception ex)

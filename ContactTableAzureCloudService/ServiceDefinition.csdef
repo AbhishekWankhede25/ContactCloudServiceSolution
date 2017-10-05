@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceDefinition name="ContactTableAzureCloudService" 
-                   xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
+<ServiceDefinition name="ContactTableAzureCloudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
   <WebRole name="ContactTableWebRole" vmsize="Small">
     <Sites>
       <Site name="Web">
@@ -17,4 +16,10 @@
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
     </Endpoints>
   </WebRole>
+  <WorkerRole name="ContactTableWorkerRole" vmsize="Small">
+    <ConfigurationSettings>
+      <Setting name="ContactConnectionString" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+    </ConfigurationSettings>
+  </WorkerRole>
 </ServiceDefinition>

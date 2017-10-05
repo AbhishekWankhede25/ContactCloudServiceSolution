@@ -46,12 +46,22 @@
       <RoleName>ContactTableWebRole</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+    <ProjectReference Include="..\ContactTableWorkerRole\ContactTableWorkerRole.csproj">
+      <Name>ContactTableWorkerRole</Name>
+      <Project>{4a5d648e-ee04-47d9-8888-713b5a36a749}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>ContactTableWorkerRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ContactTableWebRoleContent\" />
+    <Folder Include="ContactTableWorkerRoleContent\" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="ContactTableWebRoleContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="ContactTableWorkerRoleContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

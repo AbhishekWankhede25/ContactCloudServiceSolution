@@ -6,3 +6,8 @@ Project ContactTableAzureCloudService
 Nuget Packages for Project ContactTableWebRole
 	1. Install-Package WindowsAzure.Storage
 	2. Install-Package Microsoft.WindowsAzure.ConfigurationManager
+
+
+Nuget Packages for Project ContactTableWorkerRole
+	1. Install-Package WindowsAzure.Storage
+	2. Install-Package Microsoft.WindowsAzure.ConfigurationManager

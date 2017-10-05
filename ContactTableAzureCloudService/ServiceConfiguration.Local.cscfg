@@ -3,8 +3,15 @@
   <Role name="ContactTableWebRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="ContactConnectionString" value="DefaultEndpointsProtocol=https;AccountName=awdev1storage;AccountKey=TbELFiTVf/pN9JSMdsgFnytwHzx2VqEaN/EwRtFzJ46DIx0QVTOUFPA/yGghQzA6itfB98sqo5mfMkdu9d8ZZg=="/>
-      <!--<Setting name="ContactConnectionString" value="UseDevelopmentStorage=true"/>-->
+      <!--<Setting name="ContactConnectionString" value="DefaultEndpointsProtocol=https;AccountName=awdev1storage;AccountKey=TbELFiTVf/pN9JSMdsgFnytwHzx2VqEaN/EwRtFzJ46DIx0QVTOUFPA/yGghQzA6itfB98sqo5mfMkdu9d8ZZg=="/>-->
+      <Setting name="ContactConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="ContactTableWorkerRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="ContactConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
   </Role>
